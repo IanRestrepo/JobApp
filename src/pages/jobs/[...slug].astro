@@ -1,0 +1,80 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { Icon } from 'astro-icon/components';
+import Navbar from "@components/Navbar.astro";
+import Footer from "@components/Footer.astro"
+import PostLayout from "@layouts/PostLayout.astro";
+
+export const getStaticPaths = (async() => {
+    const jobPosts = await getCollection('jobs');
+    return jobPosts.map( post => ({
+        params: { slug: post.slug },
+        props: { post: post}
+    }));
+}) satisfies GetStaticPaths;
+
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+<nav class="px-4 py-4">
+    <Navbar />
+</nav>
+<section class="px-5 content-center">
+    <h1 class="text-center">{post.data.title} - {post.data.company}</h1>
+    <div class="flex gap-10 justify-center border w-1/2 m-auto px-4 py-4 my-20 bg-orange-50/20 border-orange-500 rounded-md">
+        <span class="border flex-col px-4 py-2 rounded-lg"> 
+            <span class="flex justify-center">
+                <Icon 
+                    name={'company-icon'}
+                    width={40}
+                    height={40}
+                />
+            </span>
+            <span>
+                <p class="text-center m-0 font-medium">Company: <br> <span class="text-orange-500 font-normal">{post.data.company}</span></p>
+            </span>
+        </span>
+        </span>
+
+        <span class="border flex-col px-4 py-2 rounded-lg"> 
+            <span class="flex justify-center">
+                <Icon 
+                    name={'money-icon'}
+                    width={40}
+                    height={40}
+                />
+            </span>
+            <span>
+                <p class="text-center m-0 font-medium">Salary: <br> $<span class="text-orange-500 font-normal">{post.data.salary}</span> /year</p>
+            </span>
+        </span>
+        </span>
+
+        <span class="border flex-col px-4 py-2 rounded-lg"> 
+            <span class="flex justify-center">
+                <Icon 
+                    name={'location-icon'}
+                    width={40}
+                    height={40}
+                />
+            </span>
+            <span>
+                <p class="text-center m-0 font-medium">Based in: <br> <span class="text-orange-500 font-normal">{post.data.isRemote && !post.data.basedIn ? 'Remote': post.data.basedIn}</span></p>
+            </span>
+        </span>
+        </span>
+    </div>
+    <PostLayout title={post.data.title}>
+        <Content>
+    </PostLayout>
+    <section class="flex flex-col items-center">
+        <h1>Esta podria ser tu oportunidad...</h1>
+        <button class="py-1 px-4 rounded-md  m-auto bg-accent text-white w-1/2 font-bold text-2xl hover:scale-105 transition-all">
+            Aplicar Ahora
+        </button>
+    </section>
+  
+</section>
+<Footer />

@@ -1,0 +1,28 @@
+---
+import { SITE, LINKS } from "@config/settings";
+import Image from "astro/components/Image.astro";
+---
+
+<header class="flex justify-between gap-4 content-center items-center">
+  <span>
+    <Image src={"/logo.svg"} alt={SITE.TITLE} width={100} height={50} />
+  </span>
+
+  <ul class="flex gap-4">
+    {
+      LINKS.map((link) => (
+        <li class="text-orange-500">
+          <a href={link.HREF}>{link.TEXT}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="flex gap-4">
+    <a
+      href="#"
+      class="py-1 px-4 rounded-full bg-accent text-white"
+    >
+      Sing Up
+    </a>
+  </div>
+</header>

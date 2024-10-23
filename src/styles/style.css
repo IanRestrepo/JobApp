@@ -1,0 +1,20 @@
+  
+  h1 {
+    @apply text-3xl text-orange-500 py-5 font-bold;
+  }
+  
+  h2 {
+    @apply text-2xl text-orange-500 py-5 font-semibold;
+  }
+  
+  h3 {
+    @apply text-xl text-orange-500 py-5 font-semibold;
+  }
+  
+  p {
+    @apply  py-5 ;
+  }
+  
+  pre {
+    @apply rounded-lg py-4 px-4 my-5
+  }

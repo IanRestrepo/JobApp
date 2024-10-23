@@ -1,0 +1,15 @@
+---
+import { getCollection } from "astro:content";
+import JobPostCard from "./JobPostCard.astro";
+
+const jobPosts = await getCollection('jobs');
+
+---
+
+<section>
+    {
+        jobPosts.map(post => (
+            <JobPostCard post={post}/>
+        ))
+    }
+</section>
